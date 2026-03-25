@@ -9,7 +9,6 @@ export default function Seat({ maLichChieu }) {
     const [danhSachGhe, setDanhSachGhe] = useState([]);
     const [gheDangChon, setGheDangChon] = useState([]);
 
-    // 🔥 Lấy danh sách ghế
     useEffect(() => {
         fetch(`https://movieapi.cyberlearn.vn/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`)
             .then(res => res.json())
@@ -18,7 +17,6 @@ export default function Seat({ maLichChieu }) {
             });
     }, [maLichChieu]);
 
-    // 🎯 Chọn ghế
     const handleChonGhe = (ghe) => {
         if (ghe.daDat) return;
 
@@ -33,10 +31,8 @@ export default function Seat({ maLichChieu }) {
         }
     };
 
-    // 💰 Tổng tiền
     const tongTien = gheDangChon.reduce((total, ghe) => total + ghe.giaVe, 0);
 
-    // 🚀 Đặt vé
     const handleDatVe = () => {
         const data = {
             maLichChieu,
@@ -87,7 +83,6 @@ export default function Seat({ maLichChieu }) {
                     })}
                 </div>
 
-                {/* Legend */}
                 <div className="flex gap-6 mt-6">
                     <div className="flex items-center gap-2">
                         <div className="w-5 h-5 bg-green-500 rounded"></div>
@@ -104,7 +99,6 @@ export default function Seat({ maLichChieu }) {
                 </div>
             </div>
 
-            {/* 💳 RIGHT: THÔNG TIN ĐẶT VÉ */}
             <div className="w-1/4 bg-[#1e293b] p-5 rounded shadow sticky top-5 h-fit">
 
                 <h2 className="text-xl font-bold mb-4">Thông tin vé</h2>
