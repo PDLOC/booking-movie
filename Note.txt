@@ -1,0 +1,51 @@
+    - SPA
+    - Component:
+        Stateful component: class - lifecycle => logic
+        Stateless component: function - hooks => logic
+
+*** Buoi 2 ***
+    - Rendering Elements: {}
+    - Handling Events: onClick
+    - Conditional Rendering
+    - Rendering List
+    - State: 
+        useState: 
+            - component re-render => Khi state có sự thay đổi => component (fnc) chạy lại
+            - sate async (bất đồng bộ)
+
+*** Buoi 3 ***
+    - Communicate: mối quan hệ cha con 
+        - Props: Truyền dữ liệu từ cha => con
+        - Lifting state up:  Truyền dữ liệu từ con => cha
+            1. Tạo hàm để nhận dữ liệu ở component cha
+            2. Truyền hàm thông qua props => con
+            3. Component con nhận hàm, hàm giúp đẩy các data ra ngoài cha
+    - Shopping Phone
+
+*** Buoi 4 ***
+    - Shopping Phone
+
+*** Buoi 5 ***
+    - Redux
+        + useSelector: lấy những gì từ Reducer xuống component 
+        + useDispatch: gửi action lên trên reducer
+
+
+*** Buoi 6 ***
+    - Routing basic: react-router-dom
+
+*** Buoi 7 ***
+    - Routing advence:
+    - Form reactjs
+
+*** Buoi 8 ***
+    - Validation form
+    - Hooks
+        + useState
+        + useEffect: 
+            + chạy 1 lần duy nhất sau khi component được render lần đầu tiên - Nếu dependencies [] rỗng
+            + chạy lại nhiều lần, nếu dependencies có sự thay đổi giá trị
+            + destroy
+
+        + useCallback: tạo ra hàm mới - cache lại hàm chính nếu dependencies KHÔNG có sự thay đổi
+        + useMemo: cache giá trị
