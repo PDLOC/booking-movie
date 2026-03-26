@@ -51,7 +51,14 @@ export default function Auth() {
 
     const validateForm = (event) => {
         const { name, value } = event.target;
-        let mess = value.trim() === "" ? `Vui lòng nhập trường ${name}` : "";
+        let errorName = name;
+        if (errorName === "taiKhoan") {
+            errorName = "tài khoản";
+        } else if (errorName === "matKhau") {
+            errorName = "mật khẩu";
+        }
+
+        let mess = value.trim() === "" ? `Vui lòng nhập trường ${errorName}` : "";
 
         // handlee validation cho taiKhoan va matKhau
         switch (name) {
