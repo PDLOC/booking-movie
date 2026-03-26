@@ -58,8 +58,6 @@ export default function Detail() {
             {showTrailer && (
                 <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
                     <div className="relative w-[80%] h-[80%] bg-black rounded">
-
-                        {/* Nút đóng */}
                         <button
                             onClick={() => setShowTrailer(false)}
                             className="absolute top-2 right-2 py-2 px-3 rounded-base bg-gray-800 opacity-20 text-white text-2xl cursor-pointer hover:opacity-60 transition-all ease-in-out duration-200"
@@ -69,7 +67,7 @@ export default function Detail() {
 
                         <iframe
                             className="w-full h-full"
-                            src={getEmbedUrl(detail?.trailer)} // link youtube embed
+                            src={getEmbedUrl(detail?.trailer)}
                             title="Trailer"
                             allowFullScreen
                         />

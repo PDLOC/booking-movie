@@ -1,6 +1,17 @@
 import { NavLink } from "react-router-dom"
+import { useSelector } from "react-redux"
+
 
 export default function Header() {
+
+    const { data } = useSelector(state => state.loginHomeReducer);
+    console.log(data);
+
+    const handleLogOut = () => {
+        localStorage.removeItem("USER_ADMIN");
+        window.location.reload();
+    }
+
     return (
         <nav className="bg-neutral-primary w-full z-20 top-0 inset-s-0 border-b border-default">
             <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -23,12 +34,33 @@ export default function Header() {
                         <li>
                             <NavLink to="list-movie" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent`}>Danh sách phim</NavLink>
                         </li>
-                        <li>
-                            <NavLink to="login" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent`}>Đăng nhập</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="login" className={({ isActive }) => isActive ? `text-blue-500` : `hidden block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent`}>Quản trị</NavLink>
-                        </li>
+
+                        {!data ? (
+                            <li>
+                                <NavLink to="login" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent`}>Đăng nhập</NavLink>
+                            </li>
+                        ) : (
+                            <>
+                                {data.maLoaiNguoiDung === "QuanTri" && (
+                                    <li>
+                                        <NavLink to="admin" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent`}>Quản trị</NavLink>
+                                    </li>
+                                )}
+                                {data.maLoaiNguoiDung === "KhachHang" && (
+                                    <li>
+                                        <NavLink to="account" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent`}>Thông tin tài khoản</NavLink>
+                                    </li>
+                                )}
+                                <li>
+                                    <button
+                                        onClick={handleLogOut}
+                                        className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent cursor-pointer text-left"
+                                    >
+                                        Đăng xuất
+                                    </button>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
             </div>
