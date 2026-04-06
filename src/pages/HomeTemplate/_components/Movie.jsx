@@ -30,17 +30,16 @@ export default function Movie({ movie }) {
                                 className="mt-3 mb-4 text-sm font-semibold line-clamp-2 h-5">
                                 {item.tenPhim}
                             </h5>
-                            <div className="mb-5">
+                            <div className="mb-5 grid lg:grid-cols-2 md:grid-cols-1 gap-4">
                                 <Link
                                     to={`/detail/${item.maPhim}`}
                                     className="bg-yellow-600 text-white px-3 py-2 rounded hover:bg-yellow-800 duration-300"
                                 >
                                     Xem chi tiết
                                 </Link>
-
                                 <Link
                                     to={`/detail/${item.maPhim}`}
-                                    className="ml-2 bg-yellow-600 text-white px-3 py-2 rounded hover:bg-yellow-800 duration-300"
+                                    className="bg-yellow-600 text-white px-3 py-2 rounded hover:bg-yellow-800 duration-300"
                                 >
                                     🎟 Mua vé
                                 </Link>

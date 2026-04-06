@@ -96,7 +96,7 @@ export default function Login() {
                 <div className="mb-5">
                     <label htmlFor="" className="block mb-2.5 text-md font-medium">Tài khoản</label>
                     <input onBlur={validateForm} onChange={handleOnChange} name="taiKhoan"
-                        type="text" className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Vui lòng nhập tài khoản" />
+                        type="text" className="bg-neutral-secondary-medium border border-default-medium text-gray-900 text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Vui lòng nhập tài khoản" />
                     {errors.taiKhoan && (<div className="flex items-start sm:items-center p-4 mb-4 mt-2 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
                         <p className="font-medium me-1">{errors.taiKhoan}</p>
                     </div>)}
@@ -104,7 +104,7 @@ export default function Login() {
                 <div className="mb-5">
                     <label htmlFor="" className="block mb-2.5 text-md font-medium text-white">Mật khẩu</label>
                     <input onBlur={validateForm} onChange={handleOnChange} name="matKhau"
-                        type="password" className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Nhập mật khẩu" />
+                        type="password" className="bg-neutral-secondary-medium border border-default-medium text-gray-900 text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Nhập mật khẩu" />
                     {errors.matKhau && (<div className="flex items-start sm:items-center p-4 mb-4 mt-2 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
                         <p className="font-medium me-1">{errors.matKhau}</p>
                     </div>)}

@@ -4,7 +4,7 @@ import { actLogin } from "./slice"
 import { Navigate } from "react-router-dom";
 
 export default function Auth() {
-    const { loading, data, error } = useSelector(state => state.loginReducer)
+    const { loading, data, error } = useSelector(state => state.loginAdminReducer)
     const dispatch = useDispatch();
 
     // state handle form login
@@ -13,21 +13,14 @@ export default function Auth() {
         matKhau: "",
     });
 
-    // state handle validation form
     const [errors, setErrors] = useState({
         taiKhoan: "",
         matKhau: "",
     });
 
-    //disable button login
     const isDisabled = (!user.taiKhoan || !user.matKhau) || (errors.taiKhoan || errors.matKhau);
 
     const handleOnChange = (event) => {
-        /**
-         * event.target (input): đại diện cho thẻ input đang được thao tác
-         * 
-         * event.target.value: lấy value từ input
-         */
         const { name, value } = event.target;
         setUser({
             ...user,// giữ lại các giá trị cũ của user

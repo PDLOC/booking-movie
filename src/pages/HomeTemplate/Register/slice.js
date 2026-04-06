@@ -7,7 +7,7 @@ const initialState = {
     error: null,
 }
 
-const actRegister = createAsyncThunk(
+export const actRegister = createAsyncThunk(
     "register",
     async (user, { rejectWithValue }) => {
         try {
@@ -43,5 +43,7 @@ const registerSlice = createSlice({
         });
     }
 });
+
+
 
 export default registerSlice.reducer;

@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function AddUser() {
+export default function UpdateFilm() {
     return (
         <div>
-            <h1>Add User</h1>
+            <h1>UpdateFilm</h1>
         </div>
     )
 }

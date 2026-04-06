@@ -16,11 +16,6 @@ export const actLogin = createAsyncThunk(
         try {
             const result = await api.post("QuanLyNguoiDung/DangNhap", user);
 
-            /**
-             * kiểm tra loại người dùng
-             *  - Nếu khách hàng => prevent
-             *  - Nếu quản trị => allow login
-             */
             const role = result.data.content.maLoaiNguoiDung;
             if (role === "KhachHang") {
                 return rejectWithValue({

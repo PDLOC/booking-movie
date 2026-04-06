@@ -3,9 +3,7 @@ import { useSelector } from "react-redux"
 
 
 export default function Header() {
-
     const { data } = useSelector(state => state.loginHomeReducer);
-    console.log(data);
 
     const handleLogOut = () => {
         localStorage.removeItem("USER_ADMIN");
