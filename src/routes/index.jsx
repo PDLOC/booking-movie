@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom"
 import { lazy } from "react";
 
 const routes = [
@@ -42,11 +42,11 @@ const routes = [
     },
     {
         path: "admin",
-        element: lazy(() => import("./../pages/AdminTemplate")),
+        element: lazy(() => import("./../pages/AdminTemplate/")),
         nested: [
             {
-                path: "dashboard",
-                element: lazy(() => import("./../pages/AdminTemplate/Dashboard")),
+                path: "",
+                element: () => <Navigate to="list-user" replace />,
             },
             {
                 path: "list-user",
@@ -71,6 +71,10 @@ const routes = [
             {
                 path: "update-film/:id",
                 element: lazy(() => import("./../pages/AdminTemplate/Films/UpdateFilm")),
+            },
+            {
+                path: "showtime/:id",
+                element: lazy(() => import("./../pages/AdminTemplate/Films/ShowTime")),
             }
 
         ],

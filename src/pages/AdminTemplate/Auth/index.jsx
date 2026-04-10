@@ -32,7 +32,7 @@ export default function Auth() {
      * Kiểm tra nếu data tồn tại => chuyển hướng tới admintemplate
      */
     if (data) {
-        return <Navigate to="/admin/dashboard" />
+        return <Navigate to="/admin/list-user" />
     }
 
     const handleLogin = (event) => {
@@ -79,33 +79,35 @@ export default function Auth() {
     if (loading) return <p>Loading...</p>
 
     return (
-        <form className="max-w-sm mx-auto mt-10" onSubmit={handleLogin}>
-            {error && (<div className="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
-                <p className="font-medium me-1">{error.response.data.content}</p>
-            </div>)}
-            <div className="mb-5">
-                <label htmlFor="" className="block mb-2.5 text-sm font-medium text-heading">Tài khoản</label>
-                <input onBlur={validateForm} onChange={handleOnChange} name="taiKhoan"
-                    type="text" className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Vui lòng nhập tài khoản" />
-                {errors.taiKhoan && (<div className="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
-                    <p className="font-medium me-1">{errors.taiKhoan}</p>
+        <div>
+            <form className="max-w-sm mx-auto mt-10" onSubmit={handleLogin}>
+                {error && (<div className="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                    <p className="font-medium me-1">{error.response.data.content}</p>
                 </div>)}
-            </div>
-            <div className="mb-5">
-                <label htmlFor="" className="block mb-2.5 text-sm font-medium text-heading">Mật khẩu</label>
-                <input onBlur={validateForm} onChange={handleOnChange} name="matKhau"
-                    type="password" className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Nhập mật khẩu" />
-                {errors.matKhau && (<div className="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
-                    <p className="font-medium me-1">{errors.matKhau}</p>
-                </div>)}
-            </div>
-            <button
-                disabled={isDisabled}
-                type="submit"
-                className={`${isDisabled ? "disabled:opacity-50 text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none" : "text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"}`}
-            >
-                Login
-            </button>
-        </form>
+                <div className="mb-5">
+                    <label htmlFor="" className="block mb-2.5 text-sm font-medium text-heading">Tài khoản</label>
+                    <input onBlur={validateForm} onChange={handleOnChange} name="taiKhoan"
+                        type="text" className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Vui lòng nhập tài khoản" />
+                    {errors.taiKhoan && (<div className="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                        <p className="font-medium me-1">{errors.taiKhoan}</p>
+                    </div>)}
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="" className="block mb-2.5 text-sm font-medium text-heading">Mật khẩu</label>
+                    <input onBlur={validateForm} onChange={handleOnChange} name="matKhau"
+                        type="password" className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Nhập mật khẩu" />
+                    {errors.matKhau && (<div className="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                        <p className="font-medium me-1">{errors.matKhau}</p>
+                    </div>)}
+                </div>
+                <button
+                    disabled={isDisabled}
+                    type="submit"
+                    className={`${isDisabled ? "disabled:opacity-50 text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none" : "text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"}`}
+                >
+                    Login
+                </button>
+            </form>
+        </div>
     )
 }

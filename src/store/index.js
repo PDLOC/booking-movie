@@ -9,6 +9,8 @@ import detailMovieReducer from "../pages/HomeTemplate/Detail/slice"
 import loginAdminReducer from "../pages/AdminTemplate/Auth/slice"
 import addUserReducer from "../pages/AdminTemplate/User/slice"
 import filmReducer from "../pages/AdminTemplate/Films/slice"
+import showTimeReducer from "../pages/AdminTemplate/Films/ShowTime/slice"
+import cumRapReducer from "../pages/AdminTemplate/Films/ShowTime/cumRapSlice"
 const store = configureStore({
     reducer: {
         homeReducer,
@@ -20,6 +22,8 @@ const store = configureStore({
         loginAdminReducer,
         addUserReducer,
         filmReducer,
+        showTimeReducer,
+        cumRapReducer
     }
 })
 

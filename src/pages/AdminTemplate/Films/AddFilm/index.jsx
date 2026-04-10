@@ -1,6 +1,6 @@
 import { useState, useRef } from "react"
 import { actAddFilm } from '../slice';
-import { Switch, DatePicker } from 'antd';
+import { Switch } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
@@ -20,17 +20,12 @@ export default function AddFilm() {
         hot: false,
         sapChieu: false,
         dangChieu: false,
-        hinhAnh: "",
-        danhGia: 0,
+        hinhAnh: null,
+        danhGia: 1,
     });
 
     const handleOnChange = (e) => {
         let { name, value } = e.target;
-
-        if (name === "ngayKhoiChieu" && value) {
-            value = format(new Date(value), "dd/MM/yyyy");
-        }
-
         setFilm((prevFilm) => ({
             ...prevFilm,
             [name]: value,
@@ -56,23 +51,41 @@ export default function AddFilm() {
         setImgSrc("");
         setFilm((prevFilm) => ({
             ...prevFilm,
-            hinhAnh: ""
+            hinhAnh: null,
         }));
         if (fileInputRef.current) {
             fileInputRef.current.value = "";
         }
     };
 
+    const createSlug = (str) => {
+        return str
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "");
+    };
+
+
     const handleAddFilm = (e) => {
         e.preventDefault();
-        let formData = new FormData();
-        for (let key in film) {
-            if (key !== "hinhAnh") {
-                formData.append(key, film[key]);
-            } else {
-                formData.append("File", film.hinhAnh, film.hinhAnh.name);
-            }
+        if (!film.hinhAnh) {
+            console.log("Vui lòng chọn hình ảnh cho phim");
+            return;
         }
+        let formData = new FormData();
+        formData.append("tenPhim", film.tenPhim);
+        formData.append("trailer", film.trailer);
+        formData.append("moTa", film.moTa);
+        formData.append("ngayKhoiChieu", format(new Date(film.ngayKhoiChieu), "dd/MM/yyyy"));
+        formData.append("maNhom", film.maNhom);
+        formData.append("hot", String(film.hot));
+        formData.append("sapChieu", String(film.sapChieu));
+        formData.append("dangChieu", String(film.dangChieu));
+        formData.append("danhGia", String(film.danhGia));
+        formData.append("biDanh", createSlug(film.tenPhim));
+        formData.append("File", film.hinhAnh, film.hinhAnh.name);
 
         dispatch(actAddFilm(formData))
             .unwrap()
@@ -89,14 +102,15 @@ export default function AddFilm() {
 
         console.log(film);
 
-    }
+    };
+
 
     return (
         <div className="ms-10">
             <h1 className="text-lg pb-3 uppercase font-bold">Thêm phim</h1>
             <form className="max-w-sm mt-5" onSubmit={handleAddFilm}>
                 {error && (<div className="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
-                    <p className="font-medium me-1">{error.response.data.content}</p>
+                    <p className="font-medium me-1">{error}</p>
                 </div>)}
                 <div className="mb-5">
                     <label htmlFor="" className="block mb-2.5 text-sm font-medium text-heading">Tên phim</label>

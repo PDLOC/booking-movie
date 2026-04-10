@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actLoginHome } from "./slice"
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
     const { loading, data, error } = useSelector(state => state.loginHomeReducer);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     // state handle form login
     const [user, setUser] = useState({
         taiKhoan: "",
@@ -39,7 +39,11 @@ export default function Login() {
      * Nếu đã đăng nhập thành công (có data), chuyển hướng về trang chủ
      */
     if (data) {
-        return <Navigate to="/" />;
+        if (data.maLoaiNguoiDung === "QuanTri") {
+            navigate("/admin");
+        } else {
+            <Navigate to="/auth" />
+        }
     }
 
     const handleLogin = (event) => {

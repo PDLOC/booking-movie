@@ -13,7 +13,7 @@ export default function Header() {
     return (
         <nav className="bg-neutral-primary w-full z-20 top-0 inset-s-0 border-b border-default">
             <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
+                <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="https://flowbite.com/docs/images/logo.svg" className="h-7" alt="Flowbite Logo" />
                     <span className="self-center text-xl text-heading font-semibold whitespace-nowrap">Movie Booking Ticket</span>
                 </a>

@@ -12,12 +12,10 @@ export default function Seat({ maLichChieu }) {
     console.log(data);
 
     useEffect(() => {
-        // Dispatch action lấy dữ liệu ghế từ server dựa trên mã lịch chiếu
         dispatch(fetchSeat(maLichChieu));
     }, []);
 
     useEffect(() => {
-        // Khi data từ Redux thay đổi, cập nhật vào state local để hiển thị
         if (data) {
             setDanhSachGhe(data.danhSachGhe);
         }
@@ -33,29 +31,29 @@ export default function Seat({ maLichChieu }) {
     };
 
     const handleDatVe = () => {
-        // Kiểm tra logic ghế trống ở mép trước khi cho phép thực hiện đặt vé
-        for (const ghe of gheDangChon) {
-            const indexInList = danhSachGhe.findIndex((g) => g.maGhe === ghe.maGhe);
-            const posInRow = indexInList % 16; // Xác định vị trí trong hàng (0-15)
+        // // Kiểm tra logic ghế trống ở mép trước khi cho phép thực hiện đặt vé
+        // for (const ghe of gheDangChon) {
+        //     const indexInList = danhSachGhe.findIndex((g) => g.maGhe === ghe.maGhe);
+        //     const posInRow = indexInList % 16; // Xác định vị trí trong hàng (0-15)
 
-            // Kiểm tra nếu chọn ghế ở vị trí thứ 2 (index 1) mà bỏ trống ghế ngoài cùng (index 0)
-            if (posInRow === 1) {
-                const gheNgoaiCung = danhSachGhe[indexInList - 1];
-                if (gheNgoaiCung && !gheNgoaiCung.daDat && !gheDangChon.some(g => g.maGhe === gheNgoaiCung.maGhe)) {
-                    alert(`Không được để trống ghế ngoài cùng (${gheNgoaiCung.tenGhe}) khi đã chọn ghế ${ghe.tenGhe}.`);
-                    return;
-                }
-            }
+        //     // Kiểm tra nếu chọn ghế ở vị trí thứ 2 (index 1) mà bỏ trống ghế ngoài cùng (index 0)
+        //     if (posInRow === 1) {
+        //         const gheNgoaiCung = danhSachGhe[indexInList - 1];
+        //         if (gheNgoaiCung && !gheNgoaiCung.daDat && !gheDangChon.some(g => g.maGhe === gheNgoaiCung.maGhe)) {
+        //             alert(`Không được để trống ghế ngoài cùng (${gheNgoaiCung.tenGhe}) khi đã chọn ghế ${ghe.tenGhe}.`);
+        //             return;
+        //         }
+        //     }
 
-            // Kiểm tra nếu chọn ghế ở vị trí áp chót (index 14) mà bỏ trống ghế ngoài cùng (index 15)
-            if (posInRow === 14) {
-                const gheNgoaiCung = danhSachGhe[indexInList + 1];
-                if (gheNgoaiCung && !gheNgoaiCung.daDat && !gheDangChon.some(g => g.maGhe === gheNgoaiCung.maGhe)) {
-                    alert(`Không được để trống ghế ngoài cùng (${gheNgoaiCung.tenGhe}) khi đã chọn ghế ${ghe.tenGhe}.`);
-                    return;
-                }
-            }
-        }
+        //     // Kiểm tra nếu chọn ghế ở vị trí áp chót (index 14) mà bỏ trống ghế ngoài cùng (index 15)
+        //     if (posInRow === 14) {
+        //         const gheNgoaiCung = danhSachGhe[indexInList + 1];
+        //         if (gheNgoaiCung && !gheNgoaiCung.daDat && !gheDangChon.some(g => g.maGhe === gheNgoaiCung.maGhe)) {
+        //             alert(`Không được để trống ghế ngoài cùng (${gheNgoaiCung.tenGhe}) khi đã chọn ghế ${ghe.tenGhe}.`);
+        //             return;
+        //         }
+        //     }
+        // }
 
         console.log("Thông tin đặt vé:", { maLichChieu, danhSachVe: gheDangChon });
     };
