@@ -95,11 +95,6 @@ export default function AdminTemplate() {
         return breadcrumbs;
     };
 
-    if (!data || data.maLoaiNguoiDung !== "QuanTri") {
-        return <Navigate to="/auth" />
-    }
-
-
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer, borderRadiusLG },

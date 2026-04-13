@@ -31,8 +31,8 @@ export default function Auth() {
     /**
      * Kiểm tra nếu data tồn tại => chuyển hướng tới admintemplate
      */
-    if (data) {
-        return <Navigate to="/admin/list-user" />
+    if (!data) {
+        return <Navigate to="/auth" />
     }
 
     const handleLogin = (event) => {

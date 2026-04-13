@@ -5,6 +5,7 @@ import loginHomeReducer from "../pages/HomeTemplate/Login/slice"
 import registerReducer from "../pages/HomeTemplate/Register/slice"
 import seatReducer from "../pages/HomeTemplate/ListSeat/slice"
 import detailMovieReducer from "../pages/HomeTemplate/Detail/slice"
+import profileReducer from "../pages/HomeTemplate/Profile/slice"
 
 import loginAdminReducer from "../pages/AdminTemplate/Auth/slice"
 import addUserReducer from "../pages/AdminTemplate/User/slice"
@@ -19,6 +20,7 @@ const store = configureStore({
         registerReducer,
         bannerReducer,
         seatReducer,
+        profileReducer,
         loginAdminReducer,
         addUserReducer,
         filmReducer,
