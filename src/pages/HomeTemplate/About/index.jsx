@@ -1,17 +1,10 @@
 import React from 'react'
 import 'animate.css';
 export default function About() {
-    const services = [
-        { title: "Rạp Chiếu Phim", desc: "Hệ thống âm thanh Dolby Atmos và màn hình đạt chuẩn quốc tế.", icon: "🎬" },
-        { title: "Nhà Hát", desc: "Nơi tổ chức các sự kiện nghệ thuật và biểu diễn đặc sắc.", icon: "🎭" },
-        { title: "Bowling & Billiards", desc: "Khu vực giải trí sôi động cho nhóm bạn và gia đình.", icon: "🎳" },
-        { title: "Kidzone", desc: "Không gian vui chơi an toàn và sáng tạo dành cho trẻ em.", icon: "🎠" },
-        { title: "Gym & Fitness", desc: "Phòng tập hiện đại giúp nâng cao sức khỏe mỗi ngày.", icon: "💪" },
-        { title: "C'Beer & Restaurant", desc: "Thưởng thức ẩm thực đa dạng và phố bia năng động.", icon: "🍺" },
-    ];
+
     return (
         <div className=" text-white min-h-screen">
-            <div className="relative h-[400px] flex items-center justify-center overflow-hidden">
+            <div className="relative h-100 flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-linear-to-r from-purple-900/80 to-black/60 z-10"></div>
                 <div className="relative z-20 text-center px-4">
                     <h1 className="text-5xl md:text-6xl font-extrabold uppercase tracking-tighter text-amber-400 mb-4  animate__animated animate__pulse animate__infinite animate__slow">
