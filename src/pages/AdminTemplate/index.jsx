@@ -1,7 +1,6 @@
 import { Outlet, Navigate, Link, useLocation, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { lazy, Suspense } from "react"
-
 import React, { useState } from 'react';
 import {
     DesktopOutlined,
@@ -33,7 +32,6 @@ const items = [
     ]),
     getItem("Đăng xuất", '9', <LogoutOutlined />),
 ];
-
 
 export default function AdminTemplate() {
     const { data } = useSelector(state => state.loginAdminReducer);

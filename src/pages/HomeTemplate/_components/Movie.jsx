@@ -6,9 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 export default function Movie({ movie }) {
 
     const data = movie || [];
-
     const phimDangChieu = data?.filter(item => item.dangChieu);
-
     const phimSapChieu = data?.filter(item => item.sapChieu);
 
     const renderMovie = (listMovie) => {
@@ -47,7 +45,6 @@ export default function Movie({ movie }) {
             </Slider>
         )
     };
-
 
     const settings = {
         dots: false,
