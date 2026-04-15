@@ -21,7 +21,7 @@ export default function Banner() {
 
     return (
         <div id="default-carousel" className="relative sm:max-w-screen mx-0 lg:mx-40" data-carousel="slide">
-            <div className="relative w-full h-100 overflow-hidden rounded-base">
+            <div className="relative w-full min-h-130 overflow-hidden rounded-base">
                 {data?.map((banner, index) => {
                     return (<div key={banner.maBanner} className="duration-700 ease-in-out" data-carousel-item={index === 0 ? "active" : ""}>
                         <img src={banner.hinhAnh} className="absolute w-full h-full object-fit" />

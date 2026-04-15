@@ -10,8 +10,9 @@ export default function Detail() {
     const params = useParams();
     const { id } = params;
     const { loading, data } = useSelector(state => state.detailMovieReducer);
-    // nếu data null thì sẽ là object rỗng
     const { detail, schedule } = data || {};
+
+    console.log(schedule);
 
     const [showTrailer, setShowTrailer] = useState(false);
     const getEmbedUrl = (url) => {

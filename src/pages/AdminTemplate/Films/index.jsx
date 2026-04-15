@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useState, useEffect } from 'react'
 import { Pagination } from 'antd';
-import { fetchFilms } from "./slice"
+import { fetchFilms, actDeleteFilm, searchFilm } from "./slice"
 import { useNavigate } from "react-router-dom"
-import { format } from "date-fns"
 
 export default function Film() {
     const { data, loading, error } = useSelector(state => state.filmReducer);
@@ -17,9 +16,7 @@ export default function Film() {
     const handleAddFilm = () => {
         navigate("/admin/add-film");
     }
-    // const handleUpdateUser = (id) => {
-    //     navigate(`/admin/update-film/${id}`);
-    // }
+
 
     useEffect(() => {
         dispatch(fetchFilms({ page: currentPage, pageSize }));
@@ -27,23 +24,35 @@ export default function Film() {
 
     const handleDelete = (id, e) => {
         e.preventDefault();
-        // dispatch(actDeleteUser(id))
-        //     .unwrap()
-        //     .then(() => {
-        //         dispatch(fetchUser({ page: currentPage, pageSize }));
-        //         console.log("Xóa thành công");
-        //     })
-        //     .catch(
-        //         (err) => {
-        //             console.log(err);
-        //         }
-        //     );
+        dispatch(actDeleteFilm(id))
+            .unwrap()
+            .then(() => {
+                dispatch(fetchFilms({ page: currentPage, pageSize }));
+                console.log("Xóa thành công");
+            })
+            .catch(
+                (err) => {
+                    console.log(err);
+                }
+            );
+    }
+
+    const handleUpdateFilm = (id) => {
+        navigate(`/admin/update-film/${id}`);
+    }
+
+
+    const handleShowTime = (id) => {
+        navigate(`/admin/showtime/${id}`);
     }
 
     const handleSearch = (e) => {
         const { name, value } = e.target;
-        console.log("Tìm kiếm: ", value);
-
+        if (value.trim()) {
+            dispatch(searchFilm(value));
+        } else {
+            dispatch(fetchFilms({ page: currentPage, pageSize }));
+        }
     }
 
 
@@ -73,15 +82,22 @@ export default function Film() {
 
                     <td className="px-6 py-4 flex">
                         <button
-                            // onClick={() => handleUpdateUser(item?.taiKhoan)}
+                            onClick={() => handleUpdateFilm(item?.maPhim)}
                             type="button" className="bg-amber-500 box-border border border-transparent hover:bg-amber-600 focus:ring-1 focus:ring-amber-600 shadow-xs font-medium rounded-base text-sm px-3 py-2 cursor-pointer focus:outline-none hover:transition hover:ease-in-out duration-300">
                             <i className="fa-solid fa-pen-to-square text-white" />
                         </button>
                         <div className="ml-2">
                             <button
-                                // onClick={(e) => handleDelete(item?.taiKhoan, e)}
+                                onClick={(e) => handleDelete(item?.maPhim, e)}
                                 type="button" className="bg-red-500 box-border border border-transparent hover:bg-red-600 focus:ring-1 focus:ring-red-600 shadow-xs font-medium rounded-base text-sm px-3 py-2 cursor-pointer focus:outline-none hover:transition hover:ease-in-out duration-300">
                                 <i className="fa-solid fa-trash text-white" />
+                            </button>
+                        </div>
+                        <div className="ml-2">
+                            <button
+                                onClick={() => handleShowTime(item?.maPhim)}
+                                type="button" className="bg-blue-500 box-border border border-transparent hover:bg-blue-600 focus:ring-1 focus:ring-red-600 shadow-xs font-medium rounded-base text-sm px-3 py-2 cursor-pointer focus:outline-none hover:transition hover:ease-in-out duration-300">
+                                <i class="fa-solid fa-calendar text-white"></i>
                             </button>
                         </div>
                     </td>

@@ -59,7 +59,14 @@ const addUserSlice = createSlice({
     name: "addUserSlice",
     initialState,
     reducers: {
-
+        searchUser: (state, action) => {
+            const searchTerm = action.payload.toLowerCase();
+            console.log(searchTerm);
+            if (state.data?.items) {
+                state.data.items = state.data.items.filter(item =>
+                    item.taiKhoan.toLowerCase().includes(searchTerm) || item.hoTen.toLowerCase().includes(searchTerm));
+            }
+        }
     },
     extraReducers: (builder) => {
         // Create User
@@ -118,5 +125,5 @@ const addUserSlice = createSlice({
         });
     },
 });
-
+export const { searchUser } = addUserSlice.actions;
 export default addUserSlice.reducer;

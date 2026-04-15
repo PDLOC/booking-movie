@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useState, useEffect } from 'react'
 import { Pagination } from 'antd';
-import { fetchUser, actDeleteUser } from "./slice"
+import { fetchUser, actDeleteUser, searchUser } from "./slice"
 import { useNavigate } from "react-router-dom"
 
 export default function User() {
@@ -42,8 +42,11 @@ export default function User() {
 
     const handleSearch = (e) => {
         const { name, value } = e.target;
-        console.log("Tìm kiếm: ", value);
-
+        if (value.trim()) {
+            dispatch(searchUser(value));
+        } else {
+            dispatch(fetchUser({ page: currentPage, pageSize }));
+        }
     }
 
 

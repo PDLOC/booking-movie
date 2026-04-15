@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSeat } from "../ListSeat/slice";
+import { fetchSeat, bookingTicket } from "../ListSeat/slice";
 
 export default function Seat({ maLichChieu }) {
     const { loading, data } = useSelector(state => state.seatReducer);
     const dispatch = useDispatch();
-
     const [danhSachGhe, setDanhSachGhe] = useState([]);
     const [gheDangChon, setGheDangChon] = useState([]);
 
-    console.log(data);
-
     useEffect(() => {
-        // Dispatch action lấy dữ liệu ghế từ server dựa trên mã lịch chiếu
         dispatch(fetchSeat(maLichChieu));
     }, []);
 
     useEffect(() => {
-        // Khi data từ Redux thay đổi, cập nhật vào state local để hiển thị
         if (data) {
             setDanhSachGhe(data.danhSachGhe);
         }
@@ -30,37 +25,52 @@ export default function Seat({ maLichChieu }) {
         } else {
             setGheDangChon(gheDangChon.filter((g) => g.maGhe !== ghe.maGhe));
         }
+
     };
 
     const handleDatVe = () => {
-        // Kiểm tra logic ghế trống ở mép trước khi cho phép thực hiện đặt vé
-        for (const ghe of gheDangChon) {
-            const indexInList = danhSachGhe.findIndex((g) => g.maGhe === ghe.maGhe);
-            const posInRow = indexInList % 16; // Xác định vị trí trong hàng (0-15)
+        const ticket = {
+            maLichChieu: maLichChieu,
+            danhSachVe: gheDangChon.map(ghe => ({
+                maGhe: ghe.maGhe,
+                giaVe: ghe.giaVe
+            }))
+        };
 
-            // Kiểm tra nếu chọn ghế ở vị trí thứ 2 (index 1) mà bỏ trống ghế ngoài cùng (index 0)
-            if (posInRow === 1) {
-                const gheNgoaiCung = danhSachGhe[indexInList - 1];
+        dispatch(bookingTicket(ticket))
+            .unwrap()
+            .then(result => {
+                alert("Đặt vé thành công!");
+                dispatch(fetchSeat(maLichChieu));
+                setGheDangChon([]);
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        for (const ghe of gheDangChon) {
+            const gheIndex = danhSachGhe.findIndex((g) => g.maGhe === ghe.maGhe);
+            const row = gheIndex % 16;
+
+            if (row === 1) {
+                const gheNgoaiCung = danhSachGhe[gheIndex - 1];
                 if (gheNgoaiCung && !gheNgoaiCung.daDat && !gheDangChon.some(g => g.maGhe === gheNgoaiCung.maGhe)) {
-                    alert(`Không được để trống ghế ngoài cùng (${gheNgoaiCung.tenGhe}) khi đã chọn ghế ${ghe.tenGhe}.`);
+                    alert(`Không được để trống ghế ngoài cùng ${gheNgoaiCung.tenGhe} khi đã chọn ghế ${ghe.tenGhe}.`);
                     return;
                 }
             }
 
-            // Kiểm tra nếu chọn ghế ở vị trí áp chót (index 14) mà bỏ trống ghế ngoài cùng (index 15)
-            if (posInRow === 14) {
-                const gheNgoaiCung = danhSachGhe[indexInList + 1];
-                if (gheNgoaiCung && !gheNgoaiCung.daDat && !gheDangChon.some(g => g.maGhe === gheNgoaiCung.maGhe)) {
-                    alert(`Không được để trống ghế ngoài cùng (${gheNgoaiCung.tenGhe}) khi đã chọn ghế ${ghe.tenGhe}.`);
+            if (row === 14) {
+                const gheNgoaiCung = danhSachGhe[gheIndex + 1];
+                if (gheNgoaiCung && !gheNgoaiCung.gheIndex && !gheDangChon.some(g => g.maGhe === gheNgoaiCung.maGhe)) {
+                    alert(`Không được để trống ghế ngoài cùng ${gheNgoaiCung.tenGhe} khi đã chọn ghế ${ghe.tenGhe}.`);
                     return;
                 }
             }
         }
-
-        console.log("Thông tin đặt vé:", { maLichChieu, danhSachVe: gheDangChon });
     };
 
-    // Tính tổng tiền dựa trên danh sách ghế đang chọn
     const tongTien = gheDangChon.reduce((acc, ghe) => acc + ghe.giaVe, 0);
 
     if (loading) return <div className="text-white text-center">Đang tải phòng vé...</div>;
@@ -70,8 +80,6 @@ export default function Seat({ maLichChieu }) {
             <div className="w-3/4">
                 <div className="bg-white screen text-black text-center py-2 mb-2 rounded fill-gray-200 drop-shadow-2xl drop-shadow-gray-300"></div>
                 <p className="text-center opacity-50">MÀN HÌNH</p>
-
-                {/* Danh sách ghế */}
                 <div className="grid grid-cols-16 gap-2 justify-center">
                     {danhSachGhe.map((ghe) => {
                         const isSelected = gheDangChon.some(g => g.maGhe === ghe.maGhe);
@@ -96,7 +104,7 @@ export default function Seat({ maLichChieu }) {
 
                 <div className="flex gap-6 mt-6">
                     <div className="flex items-center gap-2">
-                        <div className="w-5 h-5 bg-green-500 rounded"></div>
+                        <div className="w-5 h-5 bg-gray-100 rounded"></div>
                         Ghế trống
                     </div>
                     <div className="flex items-center gap-2">
@@ -108,7 +116,7 @@ export default function Seat({ maLichChieu }) {
                         Đang chọn
                     </div>
                     <div className="flex items-center gap-2">
-                        <div className="w-5 h-5 bg-gray-500 rounded"></div>
+                        <div className="w-5 h-5 bg-red-600 rounded"></div>
                         Đã đặt
                     </div>
                 </div>
@@ -144,7 +152,7 @@ export default function Seat({ maLichChieu }) {
                 <button
                     onClick={handleDatVe}
                     disabled={gheDangChon.length === 0}
-                    className="w-full bg-red-500 hover:bg-red-600 disabled:bg-gray-500 py-2 rounded"
+                    className="w-full bg-red-500 hover:bg-red-600 disabled:bg-gray-500 py-2 rounded cursor-pointer"
                 >
                     Đặt vé
                 </button>

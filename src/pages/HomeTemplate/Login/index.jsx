@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actLoginHome } from "./slice"
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
     const { loading, data, error } = useSelector(state => state.loginHomeReducer);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     // state handle form login
     const [user, setUser] = useState({
         taiKhoan: "",
@@ -23,27 +23,20 @@ export default function Login() {
     const isDisabled = (!user.taiKhoan || !user.matKhau) || (errors.taiKhoan || errors.matKhau);
 
     const handleOnChange = (event) => {
-        /**
-         * event.target (input): đại diện cho thẻ input đang được thao tác
-         * 
-         * event.target.value: lấy value từ input
-         */
         const { name, value } = event.target;
         setUser({
-            ...user,// giữ lại các giá trị cũ của user
-            [name]: value, // cập nhật lại những giá trị mới cho thuộc tính có tên là name
+            ...user,
+            [name]: value,
         });
     };
 
-    /**
-     * Nếu đã đăng nhập thành công (có data), chuyển hướng về trang chủ
-     */
-    if (data) {
-        return <Navigate to="/" />;
-    }
+    useEffect(() => {
+        if (data) {
+            navigate("/");
+        }
+    }, [data, navigate]);
 
     const handleLogin = (event) => {
-        // Chặn hành vi tải lại trang của form
         event.preventDefault();
         dispatch(actLoginHome(user));
 
@@ -60,20 +53,12 @@ export default function Login() {
 
         let mess = value.trim() === "" ? `Vui lòng nhập ${errorName}` : "";
 
-
-        // handlee validation cho taiKhoan va matKhau
         switch (name) {
             case "taiKhoan":
                 if (value.trim() && value.trim().length < 4) {
                     mess = "Tài khoản phải có ít nhất 4 ký tự"
                 }
                 break;
-            // case "matKhau":
-            //     const letter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{0,}$/;
-            //     if (value.trim() && !value.trim().match(letter)) {
-            //         mess = "Mật khẩu phải chứa ít nhất 1 ký tự số, 1 ký tự in hoa, 1 ký tự đặc biệt"
-            //     }
-            //     break;
             default:
                 break;
         }
@@ -93,6 +78,9 @@ export default function Login() {
                 Đăng nhập
             </h1>
             <form className="max-w-sm mx-auto mb-15" onSubmit={handleLogin}>
+                {error && (<div className="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                    <p className="font-medium me-1">{error.response.data.content}</p>
+                </div>)}
                 <div className="mb-5">
                     <label htmlFor="" className="block mb-2.5 text-md font-medium">Tài khoản</label>
                     <input onBlur={validateForm} onChange={handleOnChange} name="taiKhoan"
@@ -117,9 +105,7 @@ export default function Login() {
                     >
                         Đăng nhập
                     </button>
-                    {error && (<div className="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
-                        <p className="font-medium me-1">{error.response.data.content}</p>
-                    </div>)}
+
                     <Link to="/register" className="text-md hover:text-amber-400 hover:transition-all hover:ease-in-out duration-200">Đăng ký</Link>
                 </div>
             </form>

@@ -18,7 +18,6 @@ export default function UpdateUser() {
         hoTen: "",
     });
 
-    // Tìm thông tin người dùng từ danh sách khi component mount hoặc id thay đổi
     useEffect(() => {
         if (id && data?.items) {
             const foundUser = data.items.find(item => item.taiKhoan === id);

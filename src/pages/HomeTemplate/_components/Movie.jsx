@@ -8,11 +8,8 @@ export default function Movie({ movie }) {
     const data = movie || [];
 
     const phimDangChieu = data?.filter(item => item.dangChieu);
-    console.log(phimDangChieu);
 
     const phimSapChieu = data?.filter(item => item.sapChieu);
-    console.log(phimSapChieu);
-
 
     const renderMovie = (listMovie) => {
         return (
