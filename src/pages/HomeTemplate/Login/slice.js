@@ -15,10 +15,8 @@ export const actLoginHome = createAsyncThunk(
     async (user, { rejectWithValue }) => {
         try {
             const result = await api.post("QuanLyNguoiDung/DangNhap", user);
-
             // Lưu trạng thái Login xuống Local Storage
             localStorage.setItem("USER_ADMIN", JSON.stringify(result.data.content));
-
             return result.data.content;
         } catch (error) {
             return rejectWithValue(error);
