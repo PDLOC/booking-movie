@@ -10,7 +10,6 @@ export default function Account() {
     const [tab, setTab] = useState("profile");
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 5;
-
     const dispatch = useDispatch();
     const { loading, data, error } = useSelector(state => state.profileReducer);
     const userAdmin = localStorage.getItem("USER_ADMIN");
@@ -31,7 +30,6 @@ export default function Account() {
         dispatch(fetchDetail(user.taiKhoan));
     }, []);
 
-    // Đồng bộ data từ Redux vào state updateUser khi fetch thành công
     useEffect(() => {
         if (data) {
             setUpdateUSer({

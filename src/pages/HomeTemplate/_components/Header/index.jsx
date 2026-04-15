@@ -20,7 +20,7 @@ export default function Header() {
             <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={logo} className="h-15" alt="logo" />
-                    <span className="self-center text-xl text-heading font-semibold whitespace-nowrap">Movie Booking Ticket</span>
+                    <span className="self-center text-xl text-heading font-semibold whitespace-nowrap">Movie Booking</span>
                 </a>
                 <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary" aria-controls="navbar-default" aria-expanded="false">
                     <span className="sr-only">Open main menu</span>

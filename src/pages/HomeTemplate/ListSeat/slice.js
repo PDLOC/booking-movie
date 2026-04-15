@@ -20,6 +20,18 @@ export const fetchSeat = createAsyncThunk(
     },
 );
 
+export const bookingTicket = createAsyncThunk(
+    "listSeat/bookingTicket",
+    async (ticket, { rejectWithValue }) => {
+        try {
+            const result = await api.post("QuanLyDatVe/DatVe", ticket);
+            return result.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
 const SeatSlice = createSlice({
     name: "SeatSlice",
     initialState,

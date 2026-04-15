@@ -9,7 +9,7 @@ export default function Footer() {
                     <div className="mb-6 md:mb-0">
                         <a href="/" className="flex items-center">
                             <img src={logo} className="h-7 me-3" alt="logo" />
-                            <span className="text-heading self-center text-2xl font-semibold whitespace-nowrap">Movie Booking Ticket</span>
+                            <span className="text-heading self-center text-2xl font-semibold whitespace-nowrap">Movie Booking</span>
                         </a>
                     </div>
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-2">
