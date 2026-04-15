@@ -1,4 +1,3 @@
-import React from 'react'
 import 'animate.css';
 export default function About() {
 
@@ -15,7 +14,6 @@ export default function About() {
                     </p>
                 </div>
             </div>
-
             <div className="max-w-7xl mx-auto py-16 px-6">
                 <div className="text-center mb-20">
                     <h2 className="relative text-3xl md:text-4xl font-bold uppercase mb-8 inline-block after:content-[''] after:block after:w-20 after:h-1 after:bg-amber-400 after:mx-auto after:mt-4">
@@ -26,7 +24,6 @@ export default function About() {
                         không chỉ dừng lại ở điện ảnh, chúng tôi mang đến một hệ sinh thái giải trí toàn diện.
                     </p>
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
                     <div className="group p-8 rounded-base bg-neutral-secondary-soft border border-default hover:border-amber-400 transition-all duration-300 hover:-translate-y-2 shadow-lg">
                         <div className="text-4xl mb-6"></div>
