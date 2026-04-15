@@ -141,7 +141,7 @@ export default function Account() {
 
     return (
         <div>
-            <div className='container my-10 px-30'>
+            <div className='container my-10 px-30 mx-auto'>
                 <div className="mb-4 border-b border-default">
                     <ul className="flex flex-wrap text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
                         {renderTabButton("profile", "THÔNG TIN TÀI KHOẢN")}
