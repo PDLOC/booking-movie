@@ -9,9 +9,9 @@ const initialState = {
 
 export const fetchDetail = createAsyncThunk(
     "profile/fetchDetail",
-    async (id, { rejectWithValue }) => {
+    async (user, { rejectWithValue }) => {
         try {
-            const result = await api.post(`QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${id}`);
+            const result = await api.post("QuanLyNguoiDung/ThongTinTaiKhoan", user);
             return result.data.content;
         } catch (error) {
             return rejectWithValue(error.response.data);
