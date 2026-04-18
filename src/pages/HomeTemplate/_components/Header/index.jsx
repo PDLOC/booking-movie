@@ -1,10 +1,11 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { useState } from "react";
 import logo from "./../../../../assets/logo.jfif"
 
 export default function Header() {
     const { data } = useSelector(state => state.loginHomeReducer);
+    const navigate = useNavigate();
     const [dropDown, setDropDown] = useState(false);
     const handleDropDown = () => {
         setDropDown(prev => !prev);
@@ -12,6 +13,7 @@ export default function Header() {
 
     const handleLogOut = () => {
         localStorage.removeItem("USER_ADMIN");
+        navigate("/");
         window.location.reload();
     }
 

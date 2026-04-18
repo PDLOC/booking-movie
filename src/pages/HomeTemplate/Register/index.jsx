@@ -3,6 +3,7 @@ import { actRegister } from "./slice"
 import { actLoginHome } from "../Login/slice"
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 
 export default function Register() {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export default function Register() {
         hoTen: "",
         maNhom: "GP01",
     });
+    const [showPassword, setShowPassword] = useState(false);
 
     const [errors, setErrors] = useState({
         taiKhoan: "",
@@ -83,10 +85,10 @@ export default function Register() {
         dispatch(actRegister(user))
             .unwrap()
             .then(() => {
-                // Sau khi đăng ký thành công, tự động gọi api đăng nhập
                 dispatch(actLoginHome({ taiKhoan: user.taiKhoan, matKhau: user.matKhau }));
+                alert("Đăng ký thành công");
             })
-            .catch(() => { }); // Lỗi đăng ký đã được slice xử lý hiển thị ở biến error
+            .catch(() => { });
     };
 
     const validateForm = (event) => {
@@ -122,8 +124,17 @@ export default function Register() {
             </div>
             <div className="mb-5">
                 <label htmlFor="" className="block mb-2.5 text-sm font-medium ">Mật khẩu</label>
-                <input name="matKhau" value={user.matKhau} onChange={handleOnChange} onBlur={validateForm}
-                    type="password" className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Nhập mật khẩu" />
+                <div className="relative">
+                    <input name="matKhau" value={user.matKhau} onChange={handleOnChange} onBlur={validateForm}
+                        type={showPassword ? "text" : "password"} className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Nhập mật khẩu" />
+                    <button
+                        type="button"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                    </button>
+                </div>
                 {errors.matKhau && (<div className="flex items-start sm:items-center p-4 mb-4 mt-2 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
                     <p className="font-medium me-1">{errors.matKhau}</p>
                 </div>)}

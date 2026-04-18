@@ -2,11 +2,13 @@ import { useState } from "react"
 import { actAddUser } from '../slice';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 
 export default function AddUser() {
     const dispatch = useDispatch();
     const negative = useNavigate();
     const { loading, error } = useSelector(state => state.addUserReducer);
+    const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState({
         taiKhoan: "",
         matKhau: "",
@@ -55,8 +57,17 @@ export default function AddUser() {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="" className="block mb-2.5 text-sm font-medium text-heading">Mật khẩu</label>
-                    <input onChange={handleOnChange} name="matKhau"
-                        type="password" className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Nhập mật khẩu" />
+                    <div className="relative">
+                        <input onChange={handleOnChange} name="matKhau"
+                            type={showPassword ? "text" : "password"} className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Nhập mật khẩu" />
+                        <button
+                            type="button"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                        </button>
+                    </div>
                 </div>
                 <div className="mb-5">
                     <label htmlFor="" className="block mb-2.5 text-sm font-medium text-heading">Email</label>
@@ -93,4 +104,3 @@ export default function AddUser() {
 
     )
 }
-

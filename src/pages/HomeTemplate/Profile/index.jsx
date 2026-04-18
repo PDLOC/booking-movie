@@ -4,11 +4,13 @@ import { fetchDetail, actUpdateProfile } from "../Profile/slice"
 import { format } from "date-fns"
 import { Pagination } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 
 export default function Account() {
     const navigate = useNavigate();
     const [tab, setTab] = useState("profile");
     const [currentPage, setCurrentPage] = useState(1);
+    const [showPassword, setShowPassword] = useState(false);
     const pageSize = 5;
     const dispatch = useDispatch();
     const { loading, data, error } = useSelector(state => state.profileReducer);
@@ -136,11 +138,6 @@ export default function Account() {
         )
     }
 
-    if (!userAdmin) {
-        navigate("/login");
-        return null;
-    }
-
     return (
         <div>
             <div className='container my-10 px-30 mx-auto'>
@@ -190,12 +187,21 @@ export default function Account() {
                                 </div>
                                 <div className="mb-5 w-1/2">
                                     <label htmlFor="password" className="block mb-2.5 text-sm font-medium text-heading">Mật khẩu</label>
-                                    <input
-                                        onChange={handleOnchange}
-                                        type="password" id="password" name="matKhau"
-                                        value={updateUser.matKhau}
-                                        className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required
-                                    />
+                                    <div className="relative">
+                                        <input
+                                            onChange={handleOnchange}
+                                            type={showPassword ? "text" : "password"} id="password" name="matKhau"
+                                            value={updateUser.matKhau}
+                                            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required
+                                        />
+                                        <button
+                                            type="button"
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        >
+                                            {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div className="mb-5">

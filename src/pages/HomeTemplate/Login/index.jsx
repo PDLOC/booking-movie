@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actLoginHome } from "./slice"
 import { Navigate, Link, useNavigate } from "react-router-dom";
+import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 
 export default function Login() {
     const { loading, data, error } = useSelector(state => state.loginHomeReducer);
@@ -12,6 +13,7 @@ export default function Login() {
         taiKhoan: "",
         matKhau: "",
     });
+    const [showPassword, setShowPassword] = useState(false);
 
     // state handle validation form
     const [errors, setErrors] = useState({
@@ -39,7 +41,6 @@ export default function Login() {
     const handleLogin = (event) => {
         event.preventDefault();
         dispatch(actLoginHome(user));
-
     }
 
     const validateForm = (event) => {
@@ -91,8 +92,17 @@ export default function Login() {
                 </div>
                 <div className="mb-5">
                     <label htmlFor="" className="block mb-2.5 text-md font-medium text-white">Mật khẩu</label>
-                    <input onBlur={validateForm} onChange={handleOnChange} name="matKhau"
-                        type="password" className="bg-neutral-secondary-medium border border-default-medium text-gray-900 text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Nhập mật khẩu" />
+                    <div className="relative">
+                        <input onBlur={validateForm} onChange={handleOnChange} name="matKhau"
+                            type={showPassword ? "text" : "password"} className="bg-neutral-secondary-medium border border-default-medium text-gray-900 text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Nhập mật khẩu" />
+                        <button
+                            type="button"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                        </button>
+                    </div>
                     {errors.matKhau && (<div className="flex items-start sm:items-center p-4 mb-4 mt-2 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
                         <p className="font-medium me-1">{errors.matKhau}</p>
                     </div>)}
