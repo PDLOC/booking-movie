@@ -83,7 +83,7 @@ export default function Auth() {
         <div>
             <form className="max-w-sm mx-auto mt-10" onSubmit={handleLogin}>
                 {error && (<div className="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
-                    <p className="font-medium me-1">{error.response.data.content}</p>
+                    <p className="font-medium me-1">{error.response?.data?.content || error.message || "Đã có lỗi xảy ra"}</p>
                 </div>)}
                 <div className="mb-5">
                     <label htmlFor="" className="block mb-2.5 text-sm font-medium text-heading">Tài khoản</label>
