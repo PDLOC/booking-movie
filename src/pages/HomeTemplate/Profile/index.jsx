@@ -3,11 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchDetail, actUpdateProfile } from "../Profile/slice"
 import { format } from "date-fns"
 import { Pagination } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 
 export default function Account() {
-    const navigate = useNavigate();
     const [tab, setTab] = useState("profile");
     const [currentPage, setCurrentPage] = useState(1);
     const [showPassword, setShowPassword] = useState(false);
