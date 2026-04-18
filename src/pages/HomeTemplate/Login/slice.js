@@ -15,7 +15,6 @@ export const actLoginHome = createAsyncThunk(
     async (user, { rejectWithValue }) => {
         try {
             const result = await api.post("QuanLyNguoiDung/DangNhap", user);
-            // Lưu trạng thái Login xuống Local Storage
             localStorage.setItem("USER_ADMIN", JSON.stringify(result.data.content));
             return result.data.content;
         } catch (error) {
@@ -28,7 +27,9 @@ const loginHomeSlice = createSlice({
     name: "loginHomeSlice",
     initialState,
     reducers: {
-
+        setLoginHomeData: (state, action) => {
+            state.data = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(actLoginHome.pending, (state) => {
@@ -48,5 +49,5 @@ const loginHomeSlice = createSlice({
         });
     }
 })
-
+export const { setLoginHomeData } = loginHomeSlice.actions;
 export default loginHomeSlice.reducer;

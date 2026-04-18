@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDetail, actUpdateProfile } from "../Profile/slice"
 import { format } from "date-fns"
+import { setLoginHomeData } from "../Login/slice";
 import { Pagination } from 'antd';
 import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 
@@ -60,9 +61,10 @@ export default function Account() {
         e.preventDefault();
         dispatch(actUpdateProfile(updateUser))
             .unwrap()
-            .then(() => {
-                console.log("Cập nhật thành công");
-                localStorage.setItem("USER_ADMIN", JSON.stringify(updateUser));
+            .then((res) => {
+                alert("Cập nhật thông tin thành công!");
+                localStorage.setItem("USER_ADMIN", JSON.stringify(res));
+                dispatch(setLoginHomeData(res));
             })
             .catch((err) => {
                 console.log(err);
