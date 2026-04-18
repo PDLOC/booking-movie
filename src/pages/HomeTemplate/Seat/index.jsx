@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSeat, bookingTicket } from "../ListSeat/slice";
+import { useNavigate } from "react-router-dom"
 
 export default function Seat({ maLichChieu }) {
+    const navigate = useNavigate();
     const { loading, data } = useSelector(state => state.seatReducer);
     const dispatch = useDispatch();
     const [danhSachGhe, setDanhSachGhe] = useState([]);
@@ -43,7 +45,7 @@ export default function Seat({ maLichChieu }) {
                 alert("Đặt vé thành công!");
                 dispatch(fetchSeat(maLichChieu));
                 setGheDangChon([]);
-                window.location.reload();
+                navigate("/");
             })
             .catch(err => {
                 console.log(err);
