@@ -31,6 +31,27 @@ export default function Seat({ maLichChieu }) {
     };
 
     const handleDatVe = () => {
+        for (const ghe of gheDangChon) {
+            const gheIndex = danhSachGhe.findIndex((g) => g.maGhe === ghe.maGhe);
+            const row = gheIndex % 16;
+
+            if (row === 1) {
+                const gheNgoaiCung = danhSachGhe[gheIndex - 1];
+                if (gheNgoaiCung && !gheNgoaiCung.daDat && !gheDangChon.some(g => g.maGhe === gheNgoaiCung.maGhe)) {
+                    alert(`Không được để trống ghế ngoài cùng ${gheNgoaiCung.tenGhe} khi đã chọn ghế ${ghe.tenGhe}.`);
+                    return; // Chặn không cho đặt vé
+                }
+            }
+
+            if (row === 14) {
+                const gheNgoaiCung = danhSachGhe[gheIndex + 1];
+                if (gheNgoaiCung && !gheNgoaiCung.daDat && !gheDangChon.some(g => g.maGhe === gheNgoaiCung.maGhe)) {
+                    alert(`Không được để trống ghế ngoài cùng ${gheNgoaiCung.tenGhe} khi đã chọn ghế ${ghe.tenGhe}.`);
+                    return; // Chặn không cho đặt vé
+                }
+            }
+        }
+
         const ticket = {
             maLichChieu: maLichChieu,
             danhSachVe: gheDangChon.map(ghe => ({
@@ -43,34 +64,13 @@ export default function Seat({ maLichChieu }) {
             .unwrap()
             .then(result => {
                 alert("Đặt vé thành công!");
-                dispatch(fetchSeat(maLichChieu));
                 setGheDangChon([]);
                 navigate("/");
             })
             .catch(err => {
-                console.log(err);
+                console.error("Lỗi đặt vé:", err);
+                alert("Đặt vé thất bại, vui lòng thử lại.");
             });
-
-        for (const ghe of gheDangChon) {
-            const gheIndex = danhSachGhe.findIndex((g) => g.maGhe === ghe.maGhe);
-            const row = gheIndex % 16;
-
-            if (row === 1) {
-                const gheNgoaiCung = danhSachGhe[gheIndex - 1];
-                if (gheNgoaiCung && !gheNgoaiCung.daDat && !gheDangChon.some(g => g.maGhe === gheNgoaiCung.maGhe)) {
-                    alert(`Không được để trống ghế ngoài cùng ${gheNgoaiCung.tenGhe} khi đã chọn ghế ${ghe.tenGhe}.`);
-                    return;
-                }
-            }
-
-            if (row === 14) {
-                const gheNgoaiCung = danhSachGhe[gheIndex + 1];
-                if (gheNgoaiCung && !gheNgoaiCung.gheIndex && !gheDangChon.some(g => g.maGhe === gheNgoaiCung.maGhe)) {
-                    alert(`Không được để trống ghế ngoài cùng ${gheNgoaiCung.tenGhe} khi đã chọn ghế ${ghe.tenGhe}.`);
-                    return;
-                }
-            }
-        }
     };
 
     const tongTien = gheDangChon.reduce((acc, ghe) => acc + ghe.giaVe, 0);
@@ -94,7 +94,7 @@ export default function Seat({ maLichChieu }) {
                                 onClick={() => handleChonGhe(ghe)}
                                 className={`w-8 h-8 text-xs rounded transition font-semibold
                                     ${ghe.daDat ? "bg-red-600 cursor-not-allowed text-white" :
-                                        isSelected ? "bg-yellow-400 text-gray-950k" :
+                                        isSelected ? "bg-yellow-400 text-gray-950" :
                                             isVip ? "bg-orange-500 text-white" : "bg-gray-100 text-gray-950"}
                                 `}
                             >
