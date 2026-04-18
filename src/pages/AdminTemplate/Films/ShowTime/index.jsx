@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { fetchCinema, actAddShowTime } from "./slice"
@@ -8,6 +8,7 @@ import { format } from "date-fns";
 
 export default function ShowTime() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { data, loading, error } = useSelector(state => state.showTimeReducer);
     const { data: cumRap } = useSelector(state => state.cumRapReducer);
@@ -51,9 +52,8 @@ export default function ShowTime() {
         dispatch(actAddShowTime(showTime))
             .unwrap()
             .then(() => {
-                console.log("Dữ liệu tạo lịch chiếu:", showTime);
                 alert("Thêm lịch chiếu thành công!");
-                window.location.reload();
+                navigate("/admin/list-films");
             })
             .catch((err) => {
                 console.log(err);

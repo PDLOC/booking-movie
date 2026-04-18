@@ -65,7 +65,6 @@ const showTimeSlice = createSlice({
         });
         builder.addCase(actAddShowTime.fulfilled, (state, action) => {
             state.loading = false;
-            state.data = action.payload;
         });
         builder.addCase(actAddShowTime.rejected, (state, action) => {
             state.loading = false;
