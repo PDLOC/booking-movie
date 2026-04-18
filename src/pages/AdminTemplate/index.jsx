@@ -1,7 +1,6 @@
-import { Outlet, Navigate, Link, useLocation, useNavigate } from "react-router-dom"
+import { Outlet, Link, useLocation, useNavigate, Navigate } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { lazy, Suspense } from "react"
-import React, { useState } from 'react';
+import { useState, Suspense } from 'react';
 import {
     DesktopOutlined,
     FileOutlined,
@@ -34,9 +33,15 @@ const items = [
 ];
 
 export default function AdminTemplate() {
-    const { data } = useSelector(state => state.loginAdminReducer);
+    const { data: reduxData } = useSelector(state => state.loginAdminReducer);
     const location = useLocation();
     const navigate = useNavigate();
+
+    const data = reduxData || JSON.parse(localStorage.getItem("USER_ADMIN"));
+
+    if (!data) {
+        return <Navigate to="/auth" replace />
+    }
 
     const getKey = () => {
         const path = location.pathname;
@@ -132,7 +137,12 @@ export default function AdminTemplate() {
                             borderRadius: borderRadiusLG,
                         }}
                     >
-                        <Suspense fallback={<div className="flex justify-center items-center h-full">Đang tải...</div>}>
+                        <Suspense fallback={
+                            <div className="flex justify-center items-center h-full">
+                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                                <span className="ml-2">Đang tải trang...</span>
+                            </div>
+                        }>
                             <Outlet />
                         </Suspense>
                     </div>

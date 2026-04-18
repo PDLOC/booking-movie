@@ -32,15 +32,15 @@ export default function Header() {
                             <NavLink to="/" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent`} aria-current="page">Trang chủ</NavLink>
                         </li>
                         <li>
-                            <NavLink to="about" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent`}>Giới thiệu</NavLink>
+                            <NavLink to="/about" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent`}>Giới thiệu</NavLink>
                         </li>
                         <li>
-                            <NavLink to="list-movie" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent`}>Danh sách phim</NavLink>
+                            <NavLink to="/list-movie" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent`}>Danh sách phim</NavLink>
                         </li>
                         <li>
                             {
                                 !data ? (
-                                    <NavLink to="login" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent cursor-pointer`}>Đăng nhập</NavLink>
+                                    <NavLink to="/login" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent cursor-pointer`}>Đăng nhập</NavLink>
                                 ) : (
                                     <>
                                         <div className="relative">
@@ -54,13 +54,13 @@ export default function Header() {
                                                 <ul className="p-2 text-sm text-body font-medium" aria-labelledby="dropdownNvbarButton">
                                                     {data.maLoaiNguoiDung === "QuanTri" && (
                                                         <li>
-                                                            <NavLink to="admin/list-user" className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                                                            <NavLink to="/admin/list-user" className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
                                                                 Quản trị
                                                             </NavLink>
                                                         </li>
                                                     )}
                                                     <li>
-                                                        <NavLink to="profile" className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                                                        <NavLink to="/profile" className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
                                                             Thông tin tài khoản
                                                         </NavLink>
                                                     </li>

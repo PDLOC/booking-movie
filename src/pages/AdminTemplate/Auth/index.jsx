@@ -28,11 +28,9 @@ export default function Auth() {
         });
     };
 
-    /**
-     * Kiểm tra nếu data tồn tại => chuyển hướng tới admintemplate
-     */
-    if (!data) {
-        return <Navigate to="/auth" />
+    const userLocal = localStorage.getItem("USER_ADMIN");
+    if (data || userLocal) {
+        return <Navigate to="/admin" replace />
     }
 
     const handleLogin = (event) => {
