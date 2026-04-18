@@ -1,13 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 import { useState } from "react";
 import logo from "./../../../../assets/logo.jfif"
 
 export default function Header() {
+    const { data } = useSelector(state => state.loginHomeReducer);
     const navigate = useNavigate();
-
-    const userLocal = localStorage.getItem("USER_ADMIN");
-    const user = userLocal ? JSON.parse(userLocal) : "";
-
     const [dropDown, setDropDown] = useState(false);
     const handleDropDown = () => {
         setDropDown(prev => !prev);
@@ -15,7 +13,7 @@ export default function Header() {
 
     const handleLogOut = () => {
         localStorage.removeItem("USER_ADMIN");
-        navigate("/");
+        navigate("/")
         window.location.reload();
     }
 
@@ -43,7 +41,7 @@ export default function Header() {
                         </li>
                         <li>
                             {
-                                !user ? (
+                                !data ? (
                                     <NavLink to="/login" className={({ isActive }) => isActive ? `text-blue-500` : `block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent cursor-pointer`}>Đăng nhập</NavLink>
                                 ) : (
                                     <>
@@ -51,12 +49,12 @@ export default function Header() {
                                             <button onClick={handleDropDown}
                                                 className="flex items-center cursor-pointer justify-between w-full py-2 px-3 rounded font-medium text-heading md:w-auto hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0"
                                                 id="dropdownNvbarButton" data-dropdown-toggle="dropdownNavbar">
-                                                {user.hoTen}
+                                                {data.hoTen}
                                                 <svg className={`w-4 h-4 ms-1.5 transition-transform ${dropDown ? 'rotate-180' : ''}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 9-7 7-7-7" /></svg>
                                             </button>
                                             <div id="dropdownNavbar" className={`z-99 ${dropDown ? "block" : "hidden"} absolute top-full left-0 mt-2 bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44`}>
                                                 <ul className="p-2 text-sm text-body font-medium" aria-labelledby="dropdownNvbarButton">
-                                                    {user.maLoaiNguoiDung === "QuanTri" && (
+                                                    {data.maLoaiNguoiDung === "QuanTri" && (
                                                         <li>
                                                             <NavLink to="/admin/list-user" className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
                                                                 Quản trị
