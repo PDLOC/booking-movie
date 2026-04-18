@@ -27,7 +27,9 @@ export default function Account() {
     });
 
     useEffect(() => {
-        dispatch(fetchDetail(user.taiKhoan));
+        if (user && user.taiKhoan) {
+            dispatch(fetchDetail(user.taiKhoan));
+        }
     }, []);
 
     useEffect(() => {
