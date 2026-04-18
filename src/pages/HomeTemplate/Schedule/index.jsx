@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { fetchSeat } from "./../ListSeat/slice"
-import { useDispatch } from "react-redux"
-import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function Schedule({ schedule }) {
-    const disppatch = useDispatch();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { data } = useSelector((state) => state.loginHomeReducer);
 
     const [activeTab, setActiveTab] = useState(null);
 
@@ -59,7 +61,14 @@ export default function Schedule({ schedule }) {
                                             <Link
                                                 key={lich.maLichChieu}
                                                 to={`/ticket/${lich.maLichChieu}`}
-                                                onClick={() => disppatch(fetchSeat(lich.maLichChieu))}
+                                                onClick={(e) => {
+                                                    if (!data) {
+                                                        e.preventDefault();
+                                                        navigate("/login");
+                                                    } else {
+                                                        dispatch(fetchSeat(lich.maLichChieu));
+                                                    }
+                                                }}
                                                 className="text-white border border-white rounded-lg px-4 py-2 hover:border-yellow-400 hover:text-yellow-400 transition duration-200 cursor-pointer"
                                             >
                                                 {new Date(

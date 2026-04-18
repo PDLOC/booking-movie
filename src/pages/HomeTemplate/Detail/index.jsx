@@ -57,10 +57,6 @@ export default function Detail() {
                                 className="bg-blue-500 text-white font-bold text-center mr-3 px-4 py-2 rounded hover:bg-blue-700 hover:transition-all hover:ease-in duration-300 cursor-pointer">
                                 Xem trailer
                             </a>
-
-                            <a className="bg-amber-500 text-white font-bold text-center px-4 py-2 rounded hover:bg-amber-700 hover:transition-all hover:ease-in duration-300 cursor-pointer">
-                                <i className="fa-solid fa-ticket rotate-150" /> Đặt vé
-                            </a>
                         </div>
                     </div>
                 </div>
